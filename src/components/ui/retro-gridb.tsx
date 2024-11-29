@@ -10,7 +10,7 @@ export default function RetroGridb({
   return (
     <div
       className={cn(
-        "pointer-events-none absolute w-dvw h-[30dvh] bottom-0 overflow-hidden opacity-50 [perspective:200px]",
+        "pointer-events-none w-dvw h-[30dvh] bottom-0 overflow-hidden opacity-100 [perspective:200px]",
         className,
       )}
       style={{ "--grid-angle": `${angle}deg` } as React.CSSProperties}
@@ -33,7 +33,7 @@ export default function RetroGridb({
       </div>
 
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent to-90% dark:from-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent to-90% dark:from-black" />
     </div>
   );
 }
