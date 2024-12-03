@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Chango&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Jockey+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Jockey+One&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,12 +12,6 @@
 
 body {
   overflow-x: hidden;
-}
-
-.fontChango {
-  font-family: "Chango", sans-serif;
-  font-weight: 400;
-  font-style: normal;
 }
 
 .fontJockey {
