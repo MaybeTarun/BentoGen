@@ -21,6 +21,8 @@ const defaultCode = `function Bento() {
   );
 }`;
 
+// navbar - <div className="w-full h-8 p-2 pb-0"><div className="w-full h-full rounded-lg bg-gray-500"></div></div>
+
 const Generator = () => {
     const [code, setCode] = useState(defaultCode);
     const [boxCount, setBoxCount] = useState<number>(0);
@@ -113,14 +115,10 @@ const Generator = () => {
               )}
             </div>
           </div>
-          <div className="p-4 font-mono text-sm">
-            <textarea
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              className="w-full bg-gray-900 text-gray-300 font-mono p-2 focus:outline-none overflow-x-auto"
-              rows={15}
-              wrap="off"
-            />
+          <div className="p-4 font-mono text-sm" style={{ maxHeight: "calc(15 * 1.5rem)", overflowY: "auto" }}>
+            <pre className="w-full bg-gray-900 text-gray-300 font-mono p-2 overflow-x-auto">
+              {code}
+            </pre>
           </div>
         </div>
 

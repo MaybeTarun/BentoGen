@@ -65,6 +65,7 @@ function App() {
       <div className="w-dvw h-fit p-4" ref={generatorRef}>
         <Generator/>
       </div>
+      <div className="w-full flex items-center justify-center"><div className="border-2 w-[80%] mb-2 md:hidden block"></div></div>
       <div className="w-dvw h-dvh p-4 flex justify-center md:mt-8" id="featured">
         <div className="fontJetBrains text-xl md:text-3xl h-fit">Featured <span className="text-[#FFB200]">Bento</span> Grids</div>
       </div>
