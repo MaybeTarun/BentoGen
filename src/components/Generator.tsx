@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import * as Babel from "@babel/standalone";
 import { FaCopy, FaArrowRightLong } from "react-icons/fa6";
+import { FaSyncAlt } from "react-icons/fa";
+import '../index.css';
 
 const defaultCode = `function Bento() {
   return (
@@ -20,18 +22,25 @@ const defaultCode = `function Bento() {
 }`;
 
 const Generator = () => {
-  const [code, setCode] = useState(defaultCode);
-  const [boxCount, setBoxCount] = useState<number>(0);
-  const [wantNavbar, setWantNavbar] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(code).then(() => {
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 2000);
-    });
-  };
+    const [code, setCode] = useState(defaultCode);
+    const [boxCount, setBoxCount] = useState<number>(0);
+    const [wantNavbar, setWantNavbar] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+    const [isRotating, setIsRotating] = useState(false);
+  
+    const copyToClipboard = () => {
+      navigator.clipboard.writeText(code).then(() => {
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 2000);
+      });
+    };
+  
+    const refreshPreview = () => {
+      setCode(code);
+      setIsRotating(true);
+      setTimeout(() => setIsRotating(false), 1000);
+    };
 
   const Preview = () => {
     try {
@@ -75,6 +84,10 @@ const Generator = () => {
                 bento-gen.vercel.app
               </div>
             </div>
+            <FaSyncAlt
+                  className={`ml-2 text-gray-400 hover:text-gray-600 cursor-pointer transition-transform duration-500 ${isRotating ? 'rotate' : ''}`}
+                  onClick={refreshPreview} 
+            />
           </div>
 
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
@@ -111,7 +124,8 @@ const Generator = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center gap-4 mt-4">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-4">
+        <div className="flex gap-2">
           <div className="flex items-center gap-2">
             <label htmlFor="boxCount" className="text-sm md:text-[1rem]">Box Count:</label>
             <input
@@ -135,11 +149,10 @@ const Generator = () => {
               onChange={() => setWantNavbar(!wantNavbar)}
             />
           </div>
-          <div className="relative flex items-center">
+          </div>
+          <div className="relative flex items-center mt-2 md:mt-0">
             <div
-              className={`absolute ${
-                isHovered ? "w-[10rem]" : "w-10"
-              } h-10 bg-blue-300 rounded-full z-10 transition-all duration-500`}
+              className={`absolute ${isHovered ? "w-[10rem]" : "w-10"} h-10 bg-blue-300 rounded-full z-10 transition-all duration-500`}
             ></div>
             <button
               onClick={() => setCode(defaultCode)}
@@ -149,9 +162,7 @@ const Generator = () => {
             >
               Try Another
               <FaArrowRightLong
-                className={`z-20 ml-2 ${
-                  isHovered ? "-rotate-90 transition-transform duration-500" : ""
-                }`}
+                className={`z-20 ml-2 ${isHovered ? "-rotate-90 transition-transform duration-500" : ""}`}
               />
             </button>
           </div>
