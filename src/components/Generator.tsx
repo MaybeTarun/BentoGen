@@ -26,10 +26,10 @@ const defaultCode = `function Bento() {
 const Generator = () => {
     const [code, setCode] = useState(defaultCode);
     const [boxCount, setBoxCount] = useState<number>(0);
-    const [wantNavbar, setWantNavbar] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [isRotating, setIsRotating] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
   
     const copyToClipboard = () => {
       navigator.clipboard.writeText(code).then(() => {
@@ -44,32 +44,85 @@ const Generator = () => {
       setTimeout(() => setIsRotating(false), 1000);
     };
 
-  const Preview = () => {
-    try {
-      const transformedCode = Babel.transform(code, {
-        presets: ["react"],
-        filename: "bento.jsx",
-      }).code || "";
+    const Preview = () => {
+      try {
+        const transformedCode = Babel.transform(code, {
+          presets: ["react"],
+          filename: "bento.jsx",
+        }).code || "";
 
-      const finalCode = `
-        ${transformedCode}
-        return Bento();
-      `;
+        const finalCode = `
+          ${transformedCode}
+          return Bento();
+        `;
 
-      const scope = { React };
-      const func = new Function(...Object.keys(scope), finalCode);
+        const scope = { React };
+        const func = new Function(...Object.keys(scope), finalCode);
 
-      return func(...Object.values(scope));
-    } catch (err) {
-      const error = err as Error;
-      console.error("Preview error:", error);
-      return (
-        <div className="text-red-500 p-4">
-          Error rendering preview: {error.message}
-        </div>
-      );
-    }
-  };
+        return func(...Object.values(scope));
+      } catch (err) {
+        const error = err as Error;
+        console.error("Preview error:", error);
+        return (
+          <div className="text-red-500 p-4">
+            Error rendering preview: {error.message}
+          </div>
+        );
+      }
+    };
+
+    const generateRandomGrid = () => {
+      if (boxCount === 1) {
+        setCode(
+          `function Bento() {
+          return (
+          <div className="w-dvw h-dvh p-4 flex items-center justify-center"><div className="bg-gray-300 rounded-lg"></div></div>
+          );
+          }`
+        );
+      } else if (boxCount === 2) {
+        const isColumn = Math.random() > 0.5;
+        const layout = isColumn ? "grid-cols-2" : "grid-rows-2";
+        setCode(
+          `function Bento() {
+            return (
+            <div className="w-full h-full p-4 flex items-center justify-center">
+            <div className="grid ${layout} gap-2">
+              <div className="bg-gray-400 rounded-lg"></div>
+              <div className="bg-gray-400 rounded-lg"></div>
+            </div>
+          </div>
+          );
+          }`
+        );
+      } else {
+        const randomCount = boxCount || Math.floor(Math.random() * 7) + 2;
+        let boxes = "";
+        for (let i = 0; i < randomCount; i++) {
+          boxes += `<div className="bg-gray-400 rounded-lg"></div>\n`;
+        }
+        setCode(
+          `function Bento() {
+          return (
+            <div className="w-full h-full p-4 flex items-center justify-center">
+            <div className="grid grid-cols-${Math.ceil(
+              Math.sqrt(randomCount)
+            )} gap-2">
+              ${boxes}
+            </div>
+          </div>
+          );
+          }`
+        );
+      }
+    };
+  
+    const handleTryAnotherClick = () => {
+      if (buttonDisabled) return;
+      setButtonDisabled(true);
+      generateRandomGrid();
+      setTimeout(() => setButtonDisabled(false), 1000);
+    };
 
   return (
     <div className="flex flex-col md:flex-row gap-4 pt-12">
@@ -115,17 +168,16 @@ const Generator = () => {
               )}
             </div>
           </div>
-          <div className="p-4 font-mono text-sm" style={{ maxHeight: "calc(15 * 1.5rem)", overflowY: "auto" }}>
+          <div className="p-4 font-mono text-sm" style={{ height: "calc(15 * 1.5rem)", overflowY: "auto" }}>
             <pre className="w-full bg-gray-900 text-gray-300 font-mono p-2 overflow-x-auto">
               {code}
             </pre>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-4">
-        <div className="flex gap-2">
+        <div className="flex justify-center items-center gap-4 mt-4">
           <div className="flex items-center gap-2">
-            <label htmlFor="boxCount" className="text-sm md:text-[1rem]">Box Count:</label>
+            <label htmlFor="boxCount" className="">Box Count:</label>
             <input
               type="number"
               id="boxCount"
@@ -137,26 +189,16 @@ const Generator = () => {
               onChange={(e) => setBoxCount(Number(e.target.value))}
             />
           </div>
-          <div className="flex items-center gap-2">
-            <label htmlFor="wantNavbar" className="text-sm md:text-[1rem]">Navbar:</label>
-            <input
-              type="checkbox"
-              id="wantNavbar"
-              className="h-4 w-4 text-blue-300 border-gray-300 rounded focus:ring-blue-400"
-              checked={wantNavbar}
-              onChange={() => setWantNavbar(!wantNavbar)}
-            />
-          </div>
-          </div>
-          <div className="relative flex items-center mt-2 md:mt-0">
+          <div className="relative flex items-center">
             <div
               className={`absolute ${isHovered ? "w-[10rem]" : "w-10"} h-10 bg-blue-300 rounded-full z-10 transition-all duration-500`}
             ></div>
             <button
-              onClick={() => setCode(defaultCode)}
+              onClick={handleTryAnotherClick}
               className="w-fit text-black z-20 fontJetBrains ml-4 flex items-center"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
+              disabled={buttonDisabled}
             >
               Try Another
               <FaArrowRightLong
