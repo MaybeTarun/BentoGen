@@ -108,7 +108,7 @@ body {
   background: #8d8d8d; 
 }
 
-.rotate {
+.rotate-360 {
   animation: rotate 1s ease-in-out;
 }
 

@@ -36,7 +36,7 @@ function App() {
 
   const scrollToGenerator = () => {
     if (generatorRef.current) {
-      const offset = 185;
+      const offset = 160;
       const top = generatorRef.current.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
