@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LiveProvider, LivePreview, LiveError } from "react-live";
 import { FaCopy } from "react-icons/fa6";
-import { FaSyncAlt } from "react-icons/fa";
+import { FaDesktop, FaMobileAlt } from "react-icons/fa";
 import "../index.css";
 
 const defaultCode = `function Bento() {
@@ -67,10 +67,11 @@ const Generator = () => {
         `;
 
       case 2:
-        const randomValue = Math.floor(Math.random() * 9) * 5 + 10;
+        const tempArea2 = Math.floor(Math.random() * 9) * 5 + 10;
+        const tempGrid2 = Math.random() < 0.5 ? 'cols' : 'rows';
         return `function Bento() {
   return (
-    <div className="w-full h-full grid grid-cols-[${randomValue}%_1fr] p-2 gap-2">
+    <div className="w-full h-full grid grid-${tempGrid2}-[${tempArea2}%_1fr] p-2 gap-2">
       <div className="bg-gray-300 rounded-lg w-full h-full"></div>
       <div className="bg-gray-300 rounded-lg w-full h-full"></div>
     </div>
@@ -79,9 +80,13 @@ const Generator = () => {
         `;
 
       case 3:
+        const tempArea3 = Math.floor(Math.random() * 9) * 5 + 10;
+        const tempGrid3 = Math.random() < 0.5 ? 'cols' : 'rows';
         return `function Bento() {
   return (
-    <div className="w-full h-full p-2 gap-2">
+    <div className="w-full h-full grid grid-${tempGrid3}-[${tempArea3}%_1fr] p-2 gap-2">
+      <div className="bg-gray-300 rounded-lg w-full h-full"></div>
+      <div className="bg-gray-300 rounded-lg w-full h-full"></div>
       <div className="bg-gray-300 rounded-lg w-full h-full"></div>
     </div>
   );
@@ -89,10 +94,25 @@ const Generator = () => {
         `;
 
       case 4:
+        const tempArea4 = Math.floor(Math.random() * 9) * 5 + 10;
+        const tempGrid4 = Math.random() < 0.5 ? 'cols' : 'rows';
+        const tempArea5 = Math.floor(Math.random() * 9) * 5 + 10;
+        const tempGrid5 = Math.random() < 0.5 ? 'cols' : 'rows';
+        const tempArea6 = Math.floor(Math.random() * 9) * 5 + 10;
+        const tempGrid6 = Math.random() < 0.5 ? 'cols' : 'rows';
         return `function Bento() {
   return (
-    <div className="w-full h-full p-2 gap-2">
-      <div className="bg-gray-300 rounded-lg w-full h-full"></div>
+    <div className="w-full h-full">
+      <div className="p-2 w-full h-full grid grid-${tempGrid4}-[${tempArea4}%_1fr] gap-2">
+        <div className="grid grid-${tempGrid5}-[${tempArea5}%_1fr] gap-2">
+          <div className="bg-gray-300 rounded-lg"></div>
+          <div className="bg-gray-300 rounded-lg"></div>
+        </div>
+        <div className="grid grid-${tempGrid6}-[${tempArea6}%_1fr] gap-2">
+          <div className="bg-gray-300 rounded-lg"></div>
+          <div className="bg-gray-300 rounded-lg"></div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -149,18 +169,25 @@ const Generator = () => {
     setButtonDisabled(true);
 
     const newCode = generateCodeForBoxCount();
-    setCode(newCode);
+    setCode("");
+    setTimeout(() => {
+      setCode(newCode);
+    }, 100);
     setTimeout(() => setButtonDisabled(false), 1000);
   };
 
-  const refreshPreview = () => {
-    setCode(code);
-    setIsRotating(true);
-    setTimeout(() => setIsRotating(false), 1000);
-  };
+  // const refreshPreview = () => {
+  //   setIsRotating(true);
+  //   setTimeout(() => setIsRotating(false), 1000);
+
+  //   setCode("");
+  //   setTimeout(() => {
+  //     setCode(code);
+  //   }, 50);
+  // };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 pt-12">
+    <div className="flex flex-col md:flex-row justify-center items-center gap-4 pt-12">
       
       <div className="w-full md:w-1/2">
         <div className="bg-gray-200 rounded-lg shadow-lg overflow-hidden">
@@ -175,9 +202,11 @@ const Generator = () => {
                 bento-gen.vercel.app
               </div>
             </div>
-            <FaSyncAlt className={`ml-2 text-gray-400 hover:text-gray-600 cursor-pointer transition-transform duration-500 ${isRotating ? 'rotate-360' : ''}`}
+            <FaDesktop className="ml-2 text-gray-400 hover:text-gray-600 cursor-pointer" />
+            <FaMobileAlt className="ml-2 text-gray-400 hover:text-gray-600 cursor-pointer" />
+            {/* <FaSyncAlt className={`ml-2 text-gray-400 hover:text-gray-600 cursor-pointer transition-transform duration-500 ${isRotating ? 'rotate-360' : ''}`}
             onClick={refreshPreview} 
-            />
+            /> */}
           </div>
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
             <div className="absolute inset-0 bg-white overflow-auto">
@@ -216,7 +245,7 @@ const Generator = () => {
               overflowY: "auto",
             }}
           >
-            <pre className="w-full bg-gray-900 text-gray-300 font-mono p-2 overflow-x-auto">
+            <pre className="w-full bg-gray-900 text-gray-300 font-mono p-2">
               {code}
             </pre>
           </div>
@@ -225,7 +254,7 @@ const Generator = () => {
         
         <div className="flex justify-center items-center gap-4 mt-4">
           <div className="flex items-center gap-2">
-            <label htmlFor="boxCount" className="">
+            <label htmlFor="boxCount" className="text-sm md:text-[1rem]">
               Box Count:
             </label>
             <input
@@ -241,7 +270,7 @@ const Generator = () => {
           </div>
           <button
             onClick={handleTryAnotherClick}
-            className={`w-fit text-black z-20 fontJetBrains ml-4 flex items-center border-2 py-2 px-6 rounded-full hover:bg-blue-300 ${buttonDisabled ? 'cursor-not-allowed' : ''}`}
+            className={`w-fit text-black text-sm md:text-[1rem] z-20 fontJetBrains ml-4 flex items-center border-2 py-2 px-6 rounded-full hover:bg-blue-300 ${buttonDisabled ? 'cursor-not-allowed' : ''}`}
             disabled={buttonDisabled}
           >
             Try Another
