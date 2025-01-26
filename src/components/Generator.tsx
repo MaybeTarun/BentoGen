@@ -27,7 +27,7 @@ const Generator = () => {
   const [boxCount, setBoxCount] = useState<number>(0);
   const [showPopup, setShowPopup] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [isRotating, setIsRotating] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code).then(() => {
@@ -176,20 +176,18 @@ const Generator = () => {
     setTimeout(() => setButtonDisabled(false), 1000);
   };
 
-  // const refreshPreview = () => {
-  //   setIsRotating(true);
-  //   setTimeout(() => setIsRotating(false), 1000);
+  const handleMobileClick = () => {
+    setIsMobileView(true);
+  };
 
-  //   setCode("");
-  //   setTimeout(() => {
-  //     setCode(code);
-  //   }, 50);
-  // };
+  const handleDesktopClick = () => {
+    setIsMobileView(false);
+  };
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center gap-4 pt-12">
       
-      <div className="w-full md:w-1/2">
+      <div className={`w-full ${isMobileView ? 'w-2/3 md:w-1/4' : 'md:w-1/2'}`}>
         <div className="bg-gray-200 rounded-lg shadow-lg overflow-hidden">
           <div className="bg-gray-200 px-4 py-2 flex items-center gap-2">
             <div className="flex gap-1.5">
@@ -198,17 +196,20 @@ const Generator = () => {
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
             </div>
             <div className="flex-1 ml-4">
-              <div className="bg-white rounded px-3 py-1 text-sm text-gray-600 w-full">
+              <div className={`bg-white rounded px-3 py-1 text-sm text-gray-600 w-full ${isMobileView ? 'text-xs' : 'text-sm'}`}>
                 bento-gen.vercel.app
               </div>
             </div>
-            <FaDesktop className="ml-2 text-gray-400 hover:text-gray-600 cursor-pointer" />
-            <FaMobileAlt className="ml-2 text-gray-400 hover:text-gray-600 cursor-pointer" />
-            {/* <FaSyncAlt className={`ml-2 text-gray-400 hover:text-gray-600 cursor-pointer transition-transform duration-500 ${isRotating ? 'rotate-360' : ''}`}
-            onClick={refreshPreview} 
-            /> */}
+            <FaDesktop 
+              className={`ml-2 text-gray-400 hover:text-gray-600 cursor-pointer ${!isMobileView ? 'text-gray-600' : ''}`} 
+              onClick={handleDesktopClick}
+            />
+            <FaMobileAlt 
+              className={`ml-2 text-gray-400 hover:text-gray-600 cursor-pointer ${isMobileView ? 'text-gray-600' : ''}`} 
+              onClick={handleMobileClick}
+            />
           </div>
-          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+          <div className="relative w-full" style={{ paddingBottom: isMobileView ? "150%" : "56.25%"}}>
             <div className="absolute inset-0 bg-white overflow-auto">
               <LiveProvider code={code} scope={{ React }}>
                 <LivePreview className="w-full h-full" />
