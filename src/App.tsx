@@ -39,7 +39,7 @@ function App() {
     if (generatorRef.current) {
       const offset = 100; // Adjust offset as needed
       const top = generatorRef.current.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
+      window.scrollTo({ top });
     }
   };
 
@@ -67,13 +67,14 @@ function App() {
         
       </div> */}
       
+      <TextReveal className="fontJetBrains" text="We don't just give you ideas; We bring them to life with responsive, cool grids in code."/>
+
       <div className="w-dvw h-fit p-4" ref={generatorRef}>
         <Generator/>
       </div>
 
       {/* <div className="w-full flex items-center justify-center"><div className="border-2 w-[80%] mb-2 md:hidden block"></div></div> */}
 
-      <TextReveal className="fontJetBrains" text="We don't just give you ideas; We bring them to life with responsive, cool grids in code."/>
 
       <div className="w-dvw h-dvh p-4 flex justify-center md:mt-8" id="featured">
         <div className="w-fit h-fit flex justify-center items-center flex-col">
