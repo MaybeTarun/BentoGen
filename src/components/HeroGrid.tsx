@@ -7,7 +7,7 @@ interface HeroGridProps {
 
 const HeroGrid: React.FC<HeroGridProps> = ({ scrollToGenerator }) => {
   return (
-    <motion.div className="w-full h-fit flex flex-col md:flex-row justify-center items-center p-12 z-40"
+    <motion.div className="w-full h-fit flex flex-col md:flex-row justify-center items-center p-12 z-40 gap-4"
       initial={{ y: "-5vh", opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1, delay: 0.2 }}>
@@ -16,7 +16,7 @@ const HeroGrid: React.FC<HeroGridProps> = ({ scrollToGenerator }) => {
           <path d="m256.002 242.913 210.412-121.43L256.002 0 45.586 121.483zm-15.053 26.073L30.534 147.557v242.96L240.949 512zm30.107 0V512l210.41-121.483v-242.96z" fill="rgba(209, 213, 219, 1)"></path>
         </svg>
       </div>
-      <div className="hidden md:flex w-[14rem] h-[14rem] items-center justify-center hover:scale-95 group">
+      <div className="hidden md:flex w-[14rem] h-[14rem] items-center justify-center group">
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full h-full">
           <div className="bg-gray-300 h-full rounded-lg transition-colors group-hover:bg-blue-300 delay-0"></div>
           <div className="bg-gray-300 h-full rounded-lg transition-colors group-hover:bg-purple-400 delay-[0.05s]"></div>
@@ -35,7 +35,7 @@ const HeroGrid: React.FC<HeroGridProps> = ({ scrollToGenerator }) => {
           <div>Now</div>
         </Magnet>
       </div>
-      <div className="flex justify-center items-center w-[14rem] h-[14rem] hover:scale-95 transition-all duration-300 group">
+      <div className="flex justify-center items-center w-[14rem] h-[14rem] transition-all duration-300 group">
         <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full h-full">
           <div className="bg-gray-300 h-full"></div>
           <div className="bg-gray-300 h-full"></div>
