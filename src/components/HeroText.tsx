@@ -2,7 +2,10 @@ import { motion } from "framer-motion";
 
 const HeroText = () => {
   return (
-    <div className="w-dvw h-fit flex justify-center items-center flex-col text-[3rem] md:text-[6rem]">
+    <motion.div className="w-dvw h-fit flex justify-center items-center flex-col text-[3rem] md:text-[6rem] z-50"
+      initial={{ y: "15vh", opacity: 1, scale: 0.8 }}
+      animate={{ y: 0, opacity: 1, scale: 1 }}
+      transition={{ duration: 1, delay: 0 }}>
       <div className="fontJockey">Design <span className="text-[#FFB200]">Bento</span> Grids</div>
       <div className="-mt-6 md:-mt-12 fontJockey">Effortlessly</div>
       <motion.div 
@@ -25,7 +28,7 @@ const HeroText = () => {
       <div className="text-[1.3rem] md:text-[2.5rem] -mt-2 md:-mt-6 fontJetBrains">
         <span className="text-[#3795BD]">Create</span> • <span className="">Customize</span> • <span className="text-[#6EC207]">Deploy</span>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

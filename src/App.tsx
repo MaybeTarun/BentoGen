@@ -6,13 +6,13 @@ import HeroText from "./components/HeroText";
 import HeroGrid from "./components/HeroGrid";
 import Generator from "./components/Generator";
 import TextReveal from "./components/ui/text-reveal";
-import { FaArrowRightLong } from 'react-icons/fa6';
-import { useState, useEffect, useRef } from 'react';
+// import { FaArrowRightLong } from 'react-icons/fa6';
+import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis'
-import tut from './assets/tut.mp4';
+// import tut from './assets/tut.mp4';
 
 function App() {
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
   const generatorRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function App() {
 
   const scrollToGenerator = () => {
     if (generatorRef.current) {
-      const offset = 100;
+      const offset = 100; // Adjust offset as needed
       const top = generatorRef.current.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
@@ -47,8 +47,12 @@ function App() {
     <>
       <RetroGridt/>
       <Nav/>
-      <HeroText/>
-      <div className="w-full flex justify-center items-center mt-8 md:mt-4 gap-2">
+      <div className="w-dvw h-[80dvh]">
+        <HeroText/>
+        <HeroGrid scrollToGenerator={scrollToGenerator} />
+      </div>
+      
+      {/* <div className="w-full flex justify-center items-center mt-8 md:mt-4 gap-2">
         <div 
           className={`absolute ${isHovered ? 'w-44 -ml-0' : 'w-10 -ml-[8.5rem]'} h-10 bg-blue-300 rounded-full z-10 transition-all duration-500`}
         ></div>
@@ -61,8 +65,7 @@ function App() {
         <FaArrowRightLong className={`ml-2 z-20 ${isHovered ? 'rotate-90 transition-transform duration-500' : ''}`}/>
         </button>
         
-      </div>
-      <HeroGrid/>
+      </div> */}
       
       <div className="w-dvw h-fit p-4" ref={generatorRef}>
         <Generator/>
@@ -79,17 +82,24 @@ function App() {
         </div>
       </div>
 
-      <TextReveal className="fontJetBrains" text="Still not finding the perfect grid for your website? Don't worry! Scroll down to learn how to create your own."/>
+      {/* <TextReveal className="fontJetBrains" text="Still not finding the perfect grid for your website? Don't worry! Scroll down to learn how to create your own."/>
 
       <div className="w-dvw h-dvh p-4 flex justify-center items-center">
         <video controls className="w-full max-w-4xl border-2 border-gray-400 p-2">
           <source src={tut} type="video/mp4"/>
           Your browser does not support the video tag.
         </video>
+      </div> */}
+
+      <div className="relative">
+        <RetroGridb />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="fontJetBrains text-lg">
+            Made by <a href="https://MaybeTarun.in" target="_blank" className="hover:opacity-70">this guy</a>.
+          </span>
+        </div>
       </div>
-
-
-      <RetroGridb/>
+      
     </>
   )
 }
