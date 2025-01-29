@@ -4,7 +4,10 @@ import { FC, ReactNode, useRef } from "react";
 import { motion, MotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 
 import { cn } from "../../lib/utils";
-import image from "../../assets/idk.png";
+import img1 from "../../assets/img1.png";
+import img2 from "../../assets/img2.avif";
+import img3 from "../../assets/img3.avif";
+
 
 interface TextRevealByWordProps {
   text: string;
@@ -28,19 +31,16 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
 
   const words = text.split(" ");
 
-  // Image animations: positions and oscillation
-  const image1Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "10%"]); // Left image 1
-  const image2Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "220%"]); // Left image 2
-  const image3Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "60%"]); // Right image
+  const image1Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "10%"]);
+  const image2Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "210%"]);
+  const image3Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "60%"]);
 
-  // Oscillation during scrolling
   const image1Rotate = useTransform(smoothProgress, [0, 1], [-10, 10]);
   const image2Rotate = useTransform(smoothProgress, [0, 1], [10, -10]);
   const image3Rotate = useTransform(smoothProgress, [0, 1], [-10, 10]);
 
   return (
     <div ref={targetRef} className={cn("relative z-0 h-[200vh]", className)}>
-      {/* Text Reveal Section */}
       <div
         className={
           "sticky top-0 mx-auto flex h-[50%] max-w-4xl items-center bg-transparent px-[1rem] py-[5rem]"
@@ -63,8 +63,6 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         </p>
       </div>
 
-      {/* Animated Images */}
-      {/* Image 1 (Left Top) */}
       <motion.div
         style={{
           y: image1Y,
@@ -72,10 +70,9 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         }}
         className="absolute left-[25%] md:left-[5%] w-[250px] h-[250px] -translate-x-1/2"
       >
-        <img src={image} alt="Animated 1" className="w-full h-full object-contain" />
+        <img src={img1} alt="Animated 1" className="w-full h-full object-contain" />
       </motion.div>
 
-      {/* Image 2 (Left Bottom) */}
       <motion.div
         style={{
           y: image2Y,
@@ -83,10 +80,9 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         }}
         className="absolute left-[25%] w-[250px] h-[250px] -translate-x-1/2"
       >
-        <img src={image} alt="Animated 2" className="w-full h-full object-contain" />
+        <img src={img2} alt="Animated 2" className="w-full h-full object-contain" />
       </motion.div>
 
-      {/* Image 3 (Right Center) */}
       <motion.div
         style={{
           y: image3Y,
@@ -94,7 +90,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         }}
         className="absolute right-[5%] w-[250px] h-[250px] -translate-x-1/2  hidden md:block"
       >
-        <img src={image} alt="Animated 3" className="w-full h-full object-contain" />
+        <img src={img3} alt="Animated 3" className="w-full h-full object-contain" />
       </motion.div>
     </div>
   );
