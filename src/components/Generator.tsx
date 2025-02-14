@@ -6,17 +6,8 @@ import "../index.css";
 
 const defaultCode = `function Bento() {
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="p-2 w-full h-full grid grid-cols-[55%_1fr] gap-2">
-        <div className="grid grid-rows-[55%_1fr] gap-2">
-          <div className="bg-[#222831] rounded-lg"></div>
-          <div className="bg-[#76ABAE] rounded-lg"></div>
-        </div>
-        <div className="grid grid-rows-[25%_1fr] gap-2">
-          <div className="bg-[#0d0d0d] rounded-lg"></div>
-          <div className="bg-[#31363F] rounded-lg"></div>
-        </div>
-      </div>
+    <div className="w-full h-full p-4">
+      Choose Box Count(0-8) and press Try Another.
     </div>
   );
 }

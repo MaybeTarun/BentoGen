@@ -1,18 +1,16 @@
 // import {motion} from 'framer-motion';
-import RetroGridt from "./components/ui/retro-gridt"
-import RetroGridb from "./components/ui/retro-gridb"
+import RetroGridt from "./components/ui/retro-gridt";
+import RetroGridb from "./components/ui/retro-gridb";
 import Nav from "./components/Nav";
 import HeroText from "./components/HeroText";
 import HeroGrid from "./components/HeroGrid";
 import Generator from "./components/Generator";
 import TextReveal from "./components/ui/text-reveal";
-// import { FaArrowRightLong } from 'react-icons/fa6';
+import Features from "./components/FeatureGrid";
 import { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis'
-// import tut from './assets/tut.mp4';
+import Lenis from '@studio-freight/lenis';
 
 function App() {
-  // const [isHovered, setIsHovered] = useState(false);
   const generatorRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -67,30 +65,9 @@ function App() {
         
       </div> */}
 
-      <div className="w-dvw h-dvh p-4 gap-4 grid grid-cols-[1fr_minmax(100vh,auto)_1fr]">
-        <div className="bg-blue-500 h-full rounded-lg"></div>
-        <div className="h-full w-dvh grid grid-rows-[1fr_6rem_1fr] gap-4 rounded-xl">
-          <div className="rounded-lg grid grid-cols-[56.1%_1fr] gap-4">
-            <div className="bg-yellow-300 rounded-lg"></div>
-            <div className="bg-green-500 rounded-lg flex items-end">
-              <div className="w-full h-1/4 bg-green-500 -mb-12"></div>
-            </div>
-          </div>
-          <div className="h-24 grid grid-cols-[1fr_auto_1fr] gap-4">
-            <div className="bg-green-500 rounded-lg"></div>
-            <div className="bg-red-500 w-24 rounded-lg"></div>
-            <div className="bg-green-500 rounded-lg"></div>
-          </div>
-          <div className="rounded-lg grid grid-cols-[1fr_56.1%] gap-4">
-            <div className="bg-green-500 rounded-lg">
-              <div className="w-full h-1/4 bg-green-500 -mt-12"></div>
-            </div>
-            <div className="bg-yellow-300 rounded-lg"></div>
-          </div>
-        </div>
-        <div className="bg-blue-500 h-full rounded-xl"></div>
+      <div className="w-dvw h-dvh relative">
+        <Features/>
       </div>
-
       
       <TextReveal className="fontJetBrains" text="We don't just give you ideas; We bring them to life with cool, responsive grids in code."/>
 

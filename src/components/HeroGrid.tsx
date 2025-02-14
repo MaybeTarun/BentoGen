@@ -9,9 +9,9 @@ const HeroGrid: React.FC<HeroGridProps> = ({ scrollToGenerator }) => {
   return (
     <motion.div
       className="w-full h-fit flex justify-center items-center p-12 z-40 relative"
-      initial={{ y: "-5vh", opacity: 0 }}
+      initial={{ y: -50 , opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, delay: 0.2 }}>
+      transition={{ duration: 1, delay: 0 }}>
 
       <div className="absolute inset-0 flex justify-center items-center">
         <div className="w-[90%] md:w-3/4 h-[16rem] bg-gray-100 grid grid-cols-3 grid-rows-3 gap-2 p-2">
