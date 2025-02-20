@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 const HeroText = () => {
   return (
     <motion.div className="w-dvw h-fit flex justify-center items-center flex-col text-[3rem] md:text-[6rem] z-50"
-      initial={{ y: 50, opacity: 1 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, delay: 0 }}>
+      initial={{ y: 50, scale: 0.8 }}
+      animate={{ y: 0, scale: 1 }}
+      transition={{ duration: 0.5, delay: 0 }}>
       <div className="fontJockey">Design <span className="text-[#FFB200]">Bento</span> Grids</div>
       <div className="-mt-6 md:-mt-12 fontJockey">Effortlessly</div>
       <motion.div 

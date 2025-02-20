@@ -32,7 +32,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
   const words = text.split(" ");
 
   const image1Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "10%"]);
-  const image2Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "210%"]);
+  const image2Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "205%"]);
   const image3Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "60%"]);
 
   const image1Rotate = useTransform(smoothProgress, [0, 1], [-10, 10]);
@@ -48,7 +48,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
       >
         <p
           className={
-            "flex flex-wrap p-5 text-2xl font-bold text-black/20 dark:text-white/20 md:p-8 md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl"
+            "flex flex-wrap p-5 text-2xl font-bold text-transparent md:p-8 md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl"
           }
         >
           {words.map((word, i) => {
@@ -68,7 +68,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
           y: image1Y,
           rotate: image1Rotate,
         }}
-        className="absolute left-[25%] md:left-[5%] w-[250px] h-[250px] -translate-x-1/2"
+        className="absolute left-[25%] md:left-[5%] w-[220px] h-[220px] md:w-[250px] md:h-[250px] -translate-x-1/2"
       >
         <img src={img1} alt="Animated 1" className="w-full h-full object-contain" />
       </motion.div>
@@ -78,7 +78,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
           y: image2Y,
           rotate: image2Rotate,
         }}
-        className="absolute left-[25%] w-[250px] h-[250px] -translate-x-1/2"
+        className="absolute left-[25%] w-[220px] h-[220px] md:w-[250px] md:h-[250px] -translate-x-1/2"
       >
         <img src={img2} alt="Animated 2" className="w-full h-full object-contain" />
       </motion.div>
@@ -88,7 +88,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
           y: image3Y,
           rotate: image3Rotate,
         }}
-        className="absolute right-[5%] w-[250px] h-[250px] -translate-x-1/2  hidden md:block"
+        className="absolute right-[5%] w-[220px] h-[220px] md:w-[250px] md:h-[250px] -translate-x-1/2  hidden md:block"
       >
         <img src={img3} alt="Animated 3" className="w-full h-full object-contain" />
       </motion.div>
@@ -109,7 +109,7 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
       <span className={"absolute opacity-30"}>{children}</span>
       <motion.span
         style={{ opacity: opacity }}
-        className={"text-black dark:text-white"}
+        className={"text-white"}
       >
         {children}
       </motion.span>
