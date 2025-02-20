@@ -71,7 +71,7 @@ function App() {
 
       <div className="w-dvw h-fit bg-white z-50 absolute">
 
-        <div className="bg-[#3795BD] h-[40px] md:h-[100px] w-dvw"></div>
+        <div className="bg-blue-300 h-[40px] md:h-[100px] w-dvw"></div>
         <div className="bg-white h-[40px] md:h-[100px] w-dvw"></div>
 
         <div className="w-dvw h-fit text-center fontJetBrains text-2xl md:text-4xl -mb-8"><span className="text-[#FFB200]">Bento</span> Grid Generator</div>

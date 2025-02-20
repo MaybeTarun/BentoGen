@@ -26,7 +26,7 @@ const FeatureGrid = () => {
   return (
     <>
     <motion.div
-        className="fixed top-0 left-0 bg-[#3795BD] z-10"
+        className="fixed top-0 left-0 bg-blue-300 z-10"
         style={{
           width: '100vw',
           height: '100vh',
@@ -50,7 +50,7 @@ const FeatureGrid = () => {
         </div>
         <div className="h-24 grid grid-cols-[1fr_auto_1fr] gap-4">
           <div className="bg-[#DE6119] "></div>
-          <div className="bg-[#3795BD] w-24 z-50"></div>
+          <div className="bg-blue-300 w-24 z-50"></div>
           <div className="bg-[#1F1E22] "></div>
         </div>
         <div className=" grid grid-cols-[1fr_56.1%] gap-4">
