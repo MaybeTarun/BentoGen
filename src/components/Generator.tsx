@@ -182,9 +182,9 @@ const Generator = () => {
         <div className="bg-gray-200 rounded-lg shadow-lg overflow-hidden">
           <div className="bg-gray-200 px-4 py-2 flex items-center gap-2">
             <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <div className="w-3 h-3 rounded-full bg-[#DE6119]"></div>
+              <div className="w-3 h-3 rounded-full bg-[#FFB200]"></div>
+              <div className="w-3 h-3 rounded-full bg-[#9BB811]"></div>
             </div>
             <div className="flex-1 ml-4">
               <div className={`bg-white rounded px-3 py-1 text-sm text-gray-600 w-full ${isMobileView ? 'text-xs' : 'text-sm'}`}>

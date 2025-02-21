@@ -67,7 +67,7 @@ const FeatureGrid = () => {
       </div>
     </div>
     
-    <TextReveal className="fontJetBrains z-20" text="We don't just give you ideas; We bring them to life with cool, responsive grids in code."/>
+    <TextReveal className="fontJetBrains z-20" text="We don't just give you ideas; We bring them to life with cool, responsive grids with code."/>
 
     </>
   )
