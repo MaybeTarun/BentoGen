@@ -1,32 +1,48 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useCallback, useEffect } from 'react';
+import { motion, useMotionValue } from 'framer-motion';
 import TextReveal from './ui/text-reveal';
 
 const FeatureGrid = () => {
-  const [scale, setScale] = useState(0);
-  const scrollThreshold = window.innerHeight;
+  const scale = useMotionValue(0);
 
-  const handleScroll = () => {
+  const updateScale = useCallback(() => {
+    const scrollThreshold = window.innerHeight;
     const scrollY = window.scrollY;
     if (scrollY > scrollThreshold) {
       const newScale = Math.min((scrollY - scrollThreshold) / window.innerHeight, 1);
-      setScale(newScale);
+      scale.set(newScale);
     } else {
-      setScale(0);
+      scale.set(0);
     }
-  };
+  }, [scale]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    let frameId = 0;
+    const handleScroll = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(() => {
+        updateScale();
+        frameId = 0;
+      });
+    };
+
+    updateScale();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
     };
-  }, []);
+  }, [updateScale]);
 
   return (
     <>
     <motion.div
-        className="fixed top-0 left-0 bg-blue-300 z-10"
+        className="fixed top-0 left-0 bg-blue-300 z-10 pointer-events-none"
         style={{
           width: '100vw',
           height: '100vh',

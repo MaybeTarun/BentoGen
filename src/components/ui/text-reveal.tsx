@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useRef } from "react";
+import { FC, ReactNode, useMemo, useRef } from "react";
 import { motion, MotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 
 import { cn } from "../../lib/utils";
@@ -29,7 +29,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
     damping: 20,
   });
 
-  const words = text.split(" ");
+  const words = useMemo(() => text.split(" "), [text]);
 
   const image1Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "10%"]);
   const image2Y = useTransform(scrollYProgress, [0, 0.5], ["100%", "205%"]);
@@ -70,7 +70,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         }}
         className="absolute left-[25%] md:left-[5%] w-[220px] h-[220px] md:w-[250px] md:h-[250px] -translate-x-1/2"
       >
-        <img src={img1} alt="Animated 1" className="w-full h-full object-contain" />
+        <img src={img1} alt="Animated 1" className="w-full h-full object-contain" loading="lazy" decoding="async" />
       </motion.div>
 
       <motion.div
@@ -80,7 +80,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         }}
         className="absolute left-[25%] w-[220px] h-[220px] md:w-[250px] md:h-[250px] -translate-x-1/2"
       >
-        <img src={img2} alt="Animated 2" className="w-full h-full object-contain" />
+        <img src={img2} alt="Animated 2" className="w-full h-full object-contain" loading="lazy" decoding="async" />
       </motion.div>
 
       <motion.div
@@ -90,7 +90,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         }}
         className="absolute right-[5%] w-[220px] h-[220px] md:w-[250px] md:h-[250px] -translate-x-1/2  hidden md:block"
       >
-        <img src={img3} alt="Animated 3" className="w-full h-full object-contain" />
+        <img src={img3} alt="Animated 3" className="w-full h-full object-contain" loading="lazy" decoding="async" />
       </motion.div>
     </div>
   );

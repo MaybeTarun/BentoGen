@@ -4,11 +4,11 @@ declare module '@babel/standalone' {
       opts?: {
         presets?: string[];
         plugins?: string[];
-        [key: string]: any;
+        [key: string]: unknown;
       }
     ): {
       code: string;
-      map: any;
-      ast: any;
+      map: unknown;
+      ast: unknown;
     };
   }

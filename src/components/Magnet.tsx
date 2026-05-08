@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
-interface MagnetProps {
-  children: React.ReactNode;
+interface MagnetProps extends ComponentPropsWithoutRef<"div"> {
+  children: ReactNode;
   padding?: number;
   disabled?: boolean;
   magnetStrength?: number;
@@ -9,7 +9,6 @@ interface MagnetProps {
   inactiveTransition?: string;
   wrapperClassName?: string;
   innerClassName?: string;
-  [key: string]: any; // For additional props
 }
 
 const Magnet: React.FC<MagnetProps> = ({
@@ -30,15 +29,35 @@ const Magnet: React.FC<MagnetProps> = ({
   innerClassName = "",
   ...props
 }) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const magnetRef = useRef<HTMLDivElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<number>(0);
+  const activeRef = useRef(false);
 
   useEffect(() => {
+    const inner = innerRef.current;
+    if (!inner) return;
+
     if (disabled) {
-      setPosition({ x: 0, y: 0 });
+      inner.style.transform = "translate3d(0px, 0px, 0)";
       return;
     }
+
+    const setActive = (active: boolean) => {
+      if (activeRef.current === active) return;
+      activeRef.current = active;
+      inner.style.transition = active ? activeTransition : inactiveTransition;
+    };
+
+    const moveInner = (x: number, y: number) => {
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+      frameRef.current = window.requestAnimationFrame(() => {
+        inner.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        frameRef.current = 0;
+      });
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!magnetRef.current) return;
@@ -51,24 +70,25 @@ const Magnet: React.FC<MagnetProps> = ({
       const distY = Math.abs(centerY - e.clientY);
 
       if (distX < width / 2 + padding && distY < height / 2 + padding) {
-        setIsActive(true);
+        setActive(true);
 
         const offsetX = (e.clientX - centerX) / magnetStrength;
         const offsetY = (e.clientY - centerY) / magnetStrength;
-        setPosition({ x: offsetX, y: offsetY });
+        moveInner(offsetX, offsetY);
       } else {
-        setIsActive(false);
-        setPosition({ x: 0, y: 0 });
+        setActive(false);
+        moveInner(0, 0);
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
-  }, [padding, disabled, magnetStrength]);
-
-  const transitionStyle = isActive ? activeTransition : inactiveTransition;
+  }, [activeTransition, inactiveTransition, padding, disabled, magnetStrength]);
 
   return (
     <div
@@ -78,10 +98,11 @@ const Magnet: React.FC<MagnetProps> = ({
       {...props}
     >
       <div
+        ref={innerRef}
         className={innerClassName}
         style={{
-          transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
-          transition: transitionStyle,
+          transform: "translate3d(0px, 0px, 0)",
+          transition: inactiveTransition,
           willChange: "transform",
         }}
       >
