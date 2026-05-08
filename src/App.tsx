@@ -12,6 +12,7 @@ import Lenis from '@studio-freight/lenis';
 import { codeLanguages, gridData } from './content/designs';
 import { IoIosArrowDown } from 'react-icons/io';
 import Toast from './components/Toast';
+import ImageWithSkeleton from './components/ImageWithSkeleton';
 
 const INITIAL_VISIBLE_DESIGNS = 6;
 const VISIBLE_DESIGN_INCREMENT = 3;
@@ -139,7 +140,7 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 p-8 pt-4">
           {visibleGridData.map((item, index) => (
             <div key={item.id} className="overflow-hidden hover:shadow-xl hover:scale-[1.01] rounded-xl relative border-[#222831] border-2">
-              <img src={item.image} alt={item.designer} className="w-full h-auto object-cover" loading="lazy" decoding="async" />
+              <ImageWithSkeleton src={item.image} alt={item.designer} />
               <div className="pt-6 pb-1 px-4 md:py-8 md:px-6 md:pb-1 bg-[#222831] border-t-4 border-white relative">
                 <div className="absolute -top-[30px] left-4 bg-[#222831] border-4 border-white text-white rounded-full w-10 h-10 flex items-center justify-center m-2">
                   {item.numberOfBoxes}
